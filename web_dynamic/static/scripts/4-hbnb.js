@@ -28,13 +28,13 @@ function apiStatus () {
   });
 }
 function fetchplaces_url() {
-  const api_url = `http://0.0.0.0:5001/api/v1/places_search/`;
+  const places_url = `http://0.0.0.0:5001/api/v1/places_search/`;
   $.ajax({
-    url: PLACES_URL,
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({}),
+    body: JSON.stringify({amenities: Object.values(amenityObj)}),
     success: function (response) {
+    $("SECTION.places").empty();
       for (const k of response) {
         const article = [
           "<article>",
