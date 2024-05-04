@@ -27,3 +27,36 @@ function apiStatus () {
     }
   });
 }
+function fetchplaces_url() {
+  const api_url = `http://0.0.0.0:5001/api/v1/places_search/`;
+  $.ajax({
+    url: PLACES_URL,
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({}),
+    success: function (response) {
+      for (const k of response) {
+        const article = [
+          "<article>",
+          '<div class="title_box">',
+          `<h2>${k.name}</h2>`,
+          `<div class="price_by_night">$${r.price_by_night}</div>`,
+          "</div>",
+          '<div class="information">',
+          `<div class="max_guest">${k.max_guest} Guest(s)</div>`,
+          `<div class="number_rooms">${k.number_rooms} Bedroom(s)</div>`,
+          `<div class="number_bathrooms">${k.number_bathrooms} Bathroom(s)</div>`,
+          "</div>",
+          '<div class="description">',
+          `${k.description}`,
+          "</div>",
+          "</article>",
+        ];
+        $("SECTION.places").append(article.join(""));
+      }
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
